@@ -1,11 +1,11 @@
 {
-  "name": "minxing-tools-core",
+  "name": "minxing-devtools-core",
   "version": "1.0.0",
   "description": "Minxing 开发插件 核心依赖",
   "main": "./lib/mx.api.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dehuinet/minxing-tools-core.git"
+    "url": "git+https://github.com/dehuinet/minxing-devtools-core.git"
   },
   "keywords": [
     "atom",
@@ -15,9 +15,9 @@
   "author": "yinhang",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/dehuinet/minxing-tools-core/issues"
+    "url": "https://github.com/dehuinet/minxing-devtools-core/issues"
   },
-  "homepage": "https://github.com/dehuinet/minxing-tools-core#readme",
+  "homepage": "https://github.com/dehuinet/minxing-devtools-core#readme",
   "dependencies": {
     "fs-extra": "^0.30.0",
     "glob": "^7.1.1",
