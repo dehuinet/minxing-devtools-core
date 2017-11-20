@@ -38,7 +38,6 @@ exports.fetchProjectRootInfoByFile =  (file) => {
         _project = Path.resolve(_project, "..");
         return getInfo(_project);
     })(Path.resolve(file));
-
     if (info) {
         const directoryPath = Path.resolve(info.project, getProjectStructure()[info.type]);
         if (Fse.existsSync(directoryPath) && Fse.statSync(directoryPath).isDirectory()) {
