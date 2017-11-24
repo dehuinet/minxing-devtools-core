@@ -13,6 +13,13 @@ exports.validatePackageName = (name) => {
     }
     return valid;
 }
+exports.fetchProjectOfTempPath = ({tempPath, projectPath}) => {
+    projectPath = Path.resolve(projectPath);
+    if (/^[a-zA-z]:\\/g.test(projectPath)) {
+        projectPath = projectPath.split(':\\')[1];
+    }
+    return Path.join(tempPath, projectPath);
+}
 
 function getProjectStructure() {
     return projectStructure;
