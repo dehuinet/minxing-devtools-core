@@ -15,7 +15,7 @@ exports.validatePackageName = (name) => {
 }
 exports.fetchProjectOfTempPath = ({tempPath, projectPath}) => {
     projectPath = Path.resolve(projectPath);
-    if (/^[a-zA-z]:\\/g.test(projectPath)) {
+    if (/^[a-zA-z]:\\/.test(projectPath)) {
         projectPath = projectPath.split(':\\')[1];
     }
     return Path.join(tempPath, projectPath);
