@@ -1,6 +1,6 @@
 {
   "name": "minxing-devtools-core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Minxing 开发插件 核心依赖",
   "main": "./lib/mx.api.js",
   "repository": {
