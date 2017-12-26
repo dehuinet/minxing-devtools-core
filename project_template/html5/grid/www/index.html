@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title></title>
+	<link rel="stylesheet" href="css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="css/example.css" />
+	<script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		html,
+		body {
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="weui-search-bar" id="search_bar">
+		<form class="weui-search-bar__form">
+			<div class="weui-search-bar__box">
+				<i class="weui-icon-search"></i>
+				<input type="search" class="weui-search-bar__input" id="search_input" placeholder="搜索" />
+				<a href="javascript:" class="weui-icon-clear" id="search_clear"></a>
+			</div>
+			<label for="search_input" class="weui-search-bar__label" id="search_text">
+				<i class="weui-icon-search"></i>
+				<span>搜索</span>
+			</label>
+		</form>
+		<a href="javascript:" class="weui-search-bar__cancel-btn" id="search_cancel">取消</a>
+	</div>
+	<div class="weui-grids">
+		<a onclick="selectUser()" href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0101.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				通讯录（单选）
+			</p>
+		</a>
+		<a onclick="selectUsers()" href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0201.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				通讯录（多选）
+			</p>
+		</a>
+		<a onclick="scanQRCode(true); return false;" href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0301.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				扫一扫
+			</p>
+		</a>
+		<a href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0401.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				工作圈
+			</p>
+		</a>
+		<a href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0101.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				Cell
+			</p>
+		</a>
+		<a href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0201.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				Cell
+			</p>
+		</a>
+		<a href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0301.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				Cell
+			</p>
+		</a>
+		<a href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0401.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				Cell
+			</p>
+		</a>
+		<a href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/bottombtn0101.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				Cell
+			</p>
+		</a>
+	</div>
+	<script type="text/javascript" src="js/weui.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			var $searchBar = $('#search_bar'),
+				$searchResult = $('#search_result'),
+				$searchText = $('#search_text'),
+				$searchInput = $('#search_input'),
+				$searchClear = $('#search_clear'),
+				$searchCancel = $('#search_cancel');
+
+			function hideSearchResult() {
+				$searchResult.hide();
+				$searchInput.val('');
+			}
+
+			function cancelSearch() {
+				hideSearchResult();
+				$searchBar.removeClass('weui-search-bar_focusing');
+				$searchText.show();
+			}
+
+			$searchText.on('click', function () {
+				$searchBar.addClass('weui-search-bar_focusing');
+				$searchInput.focus();
+			});
+			$searchInput
+				.on('blur', function () {
+					if (!this.value.length) cancelSearch();
+				})
+				.on('input', function () {
+					if (this.value.length) {
+						$searchResult.show();
+					} else {
+						$searchResult.hide();
+					}
+				});
+			$searchClear.on('click', function () {
+				hideSearchResult();
+				$searchInput.focus();
+			});
+			$searchCancel.on('click', function () {
+				cancelSearch();
+				$searchInput.blur();
+			});
+
+		});
+	</script>
+</body>
+
+</html>

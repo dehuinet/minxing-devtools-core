@@ -1,1 +1,7 @@
-{"h5test-1":"h5测试1","h5test-2":"h5测试2", "JIANHANG_HONGBAO":"红包测试", "www_all":"www_all"}
+{
+	"default": "空白应用",
+	"top": "顶部导航",
+	"bottom": "底部导航",
+	"grid": "九宫格导航",
+	"api_reference": "API文档"
+}
