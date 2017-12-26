@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title></title>
+	<link rel="stylesheet" href="css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="css/mx.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/weui.min.js"></script>
+	<style type="text/css">
+		body,
+		html {
+			height: 100%;
+		}
+
+		.weui-tab__content p {
+			text-align: center;
+			margin-top: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="weui-tab" id="tab">
+		<div class="weui-tabbar">
+			<div class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+					<img class="weui-tabbar__icon" src="image/bottombtn0101.png" />
+					<span class="weui-badge" style="position: absolute;right: -13px;">8</span>
+				</span>
+				<p class="weui-tabbar__label">首页</p>
+			</div>
+			<div class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+					<img class="weui-tabbar__icon" src="image/bottombtn0201.png" />
+					<span class="weui-badge" style="position: absolute;right: -13px;">1</span>
+				</span>
+				<p class="weui-tabbar__label">通讯录</p>
+			</div>
+			<div class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+					<img class="weui-tabbar__icon" src="image/bottombtn0301.png" />
+					<span class="weui-badge" style="display: none;position: absolute;right: -13px;"></span>
+				</span>
+				<p class="weui-tabbar__label">我的应用</p>
+			</div>
+			<div class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+					<img class="weui-tabbar__icon" src="image/bottombtn0401.png" />
+					<span class="weui-badge" style="position: absolute;right: -13px;">11</span>
+				</span>
+				<p class="weui-tabbar__label">工作圈</p>
+			</div>
+		</div>
+		<div style="height: 100%;" class="weui-tab__panel">
+			<div id="tab1" class="weui-tab__content">
+				<p>首页</p>
+			</div>
+			<div id="tab2" class="weui-tab__content">
+				<p>通讯录</p>
+			</div>
+			<div id="tab3" class="weui-tab__content">
+				<p>我的应用</p>
+			</div>
+			<div id="tab4" class="weui-tab__content">
+				<p>工作圈</p>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		$(function () {
+
+			$('.weui-navbar__item').on('click', function () {
+				$(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+			});
+			weui.tab('#tab', {
+				defaultIndex: 0,
+				onChange: function (index) {
+					for (let i = 0; i < index + 1; i++) {
+						$('.weui-tabbar__icon').eq(i).attr("src", "image/bottombtn0" + (i + 1) + "01.png")
+					}
+					$('.weui-tabbar__icon').eq(index).attr("src", "image/bottombtn0" + (index + 1) + "02.png")
+					console.log(index);
+				}
+			});
+			$('.weui-tabbar__item').eq(0).click();
+		});
+	</script>
+</body>
+</html>
