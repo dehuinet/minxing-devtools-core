@@ -30,76 +30,76 @@
 		<a href="javascript:" class="weui-search-bar__cancel-btn" id="search_cancel">取消</a>
 	</div>
 	<div class="weui-grids">
-		<a onclick="selectUser()" href="javascript:;" class="weui-grid">
+		<a href="javascript:;" class="weui-grid">
 			<div class="weui-grid__icon">
-				<img src="image/bottombtn0101.png" alt="">
+				<img src="image/g0.png" alt="">
 			</div>
 			<p class="weui-grid__label">
-				通讯录（单选）
-			</p>
-		</a>
-		<a onclick="selectUsers()" href="javascript:;" class="weui-grid">
-			<div class="weui-grid__icon">
-				<img src="image/bottombtn0201.png" alt="">
-			</div>
-			<p class="weui-grid__label">
-				通讯录（多选）
-			</p>
-		</a>
-		<a onclick="scanQRCode(true); return false;" href="javascript:;" class="weui-grid">
-			<div class="weui-grid__icon">
-				<img src="image/bottombtn0301.png" alt="">
-			</div>
-			<p class="weui-grid__label">
-				扫一扫
+				主页
 			</p>
 		</a>
 		<a href="javascript:;" class="weui-grid">
 			<div class="weui-grid__icon">
-				<img src="image/bottombtn0401.png" alt="">
+				<img src="image/g1.png" alt="">
 			</div>
 			<p class="weui-grid__label">
-				工作圈
+				闹钟
 			</p>
 		</a>
 		<a href="javascript:;" class="weui-grid">
 			<div class="weui-grid__icon">
-				<img src="image/bottombtn0101.png" alt="">
+				<img src="image/g2.png" alt="">
 			</div>
 			<p class="weui-grid__label">
-				Cell
+				公文包
 			</p>
 		</a>
 		<a href="javascript:;" class="weui-grid">
 			<div class="weui-grid__icon">
-				<img src="image/bottombtn0201.png" alt="">
+				<img src="image/g3.png" alt="">
 			</div>
 			<p class="weui-grid__label">
-				Cell
+				名片
 			</p>
 		</a>
 		<a href="javascript:;" class="weui-grid">
 			<div class="weui-grid__icon">
-				<img src="image/bottombtn0301.png" alt="">
+				<img src="image/g4.png" alt="">
 			</div>
 			<p class="weui-grid__label">
-				Cell
+				工具箱
 			</p>
 		</a>
 		<a href="javascript:;" class="weui-grid">
 			<div class="weui-grid__icon">
-				<img src="image/bottombtn0401.png" alt="">
+				<img src="image/g5.png" alt="">
 			</div>
 			<p class="weui-grid__label">
-				Cell
+				收信箱
 			</p>
 		</a>
 		<a href="javascript:;" class="weui-grid">
 			<div class="weui-grid__icon">
-				<img src="image/bottombtn0101.png" alt="">
+				<img src="image/g6.png" alt="">
 			</div>
 			<p class="weui-grid__label">
-				Cell
+				设置
+			</p>
+		</a>
+		<a href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/g7.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				我的云盘
+			</p>
+		</a>
+		<a href="javascript:;" class="weui-grid">
+			<div class="weui-grid__icon">
+				<img src="image/g8.png" alt="">
+			</div>
+			<p class="weui-grid__label">
+				应用中心
 			</p>
 		</a>
 	</div>
@@ -112,18 +112,15 @@
 				$searchInput = $('#search_input'),
 				$searchClear = $('#search_clear'),
 				$searchCancel = $('#search_cancel');
-
 			function hideSearchResult() {
 				$searchResult.hide();
 				$searchInput.val('');
 			}
-
 			function cancelSearch() {
 				hideSearchResult();
 				$searchBar.removeClass('weui-search-bar_focusing');
 				$searchText.show();
 			}
-
 			$searchText.on('click', function () {
 				$searchBar.addClass('weui-search-bar_focusing');
 				$searchInput.focus();
@@ -147,7 +144,6 @@
 				cancelSearch();
 				$searchInput.blur();
 			});
-
 		});
 	</script>
 </body>
