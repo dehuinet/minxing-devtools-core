@@ -2,6 +2,9 @@ const Fse = require('fs-extra');
 const Path = require('path');
 const projectStructure = require('./project_structure.json');
 const _ = require('underscore');
+const debug = require('debug');
+const cluster = require('cluster');
+const pckg = require('../package.json');
 
 _.extendOwn(exports, {
   getProjectStructure,
@@ -38,9 +41,10 @@ _.extendOwn(exports, {
     return readPropertiesSync(propertiesPath).type;
   },
   validatePackageName(name){
+    const logErr = exports.loggerBuilder.error('validatePackageName');
     let valid = true;
     if (!name.match(/^[\w]{1,20}$/i)) {
-      console.error('"%s" 应用名称无效. 应用名称应在20个字符以内,且不能包含空格和符号!', name);
+      logErr('"%s" 应用名称无效. 应用名称应在20个字符以内,且不能包含空格和符号!', name);
       valid = false;
     }
     return valid;
@@ -53,8 +57,9 @@ _.extendOwn(exports, {
     return Path.join(tempPath, projectPath);
   },
   fetchProjectRootInfoByFile(file){
+    const logWarn = exports.loggerBuilder.warn('fetchProjectRootInfoByFile');
     if (typeof file !== 'string') {
-      console.log(`${file} 不是一个有效的文件路径`);
+      logWarn(`${file} 不是一个有效的文件路径`);
       return undefined;
     }
     const info = (function getInfo(_project){
@@ -78,8 +83,20 @@ _.extendOwn(exports, {
     }
     return '';
   },
+  loggerBuilder: {
+    debug: _.partial(loggerBuilder, 'debug'),
+    info: _.partial(loggerBuilder, 'info'),
+    warn: _.partial(loggerBuilder, 'warn'),
+    error: _.partial(loggerBuilder, 'error')
+  }
 });
 
+function loggerBuilder(level, category){
+  if (cluster.isWorker) {
+    return debug(`${pckg.name}[${cluster.worker.process.pid}/${cluster.worker.id}]:${level}:${category}`);
+  }
+  return debug(`${pckg.name}:${level}:${category}`);
+}
 function getProjectStructure(){
   return projectStructure;
 }
