@@ -2,9 +2,11 @@ const Fse = require('fs-extra');
 const Path = require('path');
 const projectStructure = require('./project_structure.json');
 const _ = require('underscore');
-const debug = require('debug');
 const cluster = require('cluster');
 const pckg = require('../package.json');
+const debug = _.extendOwn(require('debug'), {
+  log: console.log // eslint-disable-line no-console
+});
 
 _.extendOwn(exports, {
   getProjectStructure,
@@ -84,6 +86,7 @@ _.extendOwn(exports, {
     return '';
   },
   loggerBuilder: {
+    trace: _.partial(loggerBuilder, 'trace'),
     debug: _.partial(loggerBuilder, 'debug'),
     info: _.partial(loggerBuilder, 'info'),
     warn: _.partial(loggerBuilder, 'warn'),
@@ -93,9 +96,9 @@ _.extendOwn(exports, {
 
 function loggerBuilder(level, category){
   if (cluster.isWorker) {
-    return debug(`${pckg.name}[${cluster.worker.process.pid}/${cluster.worker.id}]:${level}:${category}`);
+    return debug(`${level}:${pckg.name}[${cluster.worker.process.pid}/${cluster.worker.id}]:${category}`);
   }
-  return debug(`${pckg.name}:${level}:${category}`);
+  return debug(`${level}:${pckg.name}:${category}`);
 }
 function getProjectStructure(){
   return projectStructure;
