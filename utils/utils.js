@@ -26,20 +26,17 @@ exports.getProjectStructure = getProjectStructure;
 exports.fetchProjectRootInfoByFile = file => {
   if (typeof file !== 'string') {
     console.log(`${file} 不是一个有效的文件路径`);
-    return;
+    return undefined;
   }
-
   const info = (function getInfo(_project){
     const configPath = Path.resolve(_project, 'plugin.properties');
     if (Fse.existsSync(configPath)) {
       const config = readPropertiesSync(configPath);
       return Object.assign({}, {project: _project}, config);
     }
-
     if (_project === Path.resolve('/')) {
-      return;
+      return undefined;
     }
-
     _project = Path.resolve(_project, '..');
     return getInfo(_project);
   })(Path.resolve(file));
@@ -49,10 +46,8 @@ exports.fetchProjectRootInfoByFile = file => {
       return info;
     }
     return '';
-
   }
   return '';
-
 };
 
 function readPropertiesSync(propertiesPath){
