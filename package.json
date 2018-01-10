@@ -26,7 +26,10 @@
     "fs-promise": "^2.0.3",
     "glob": "^7.1.1",
     "prompt": "^1.0.0",
+    "ramda": "^0.25.0",
+    "request": "^2.83.0",
     "underscore": "^1.8.3",
+    "user-home": "^2.0.0",
     "ws": "^1.1.1"
   },
   "devDependencies": {
