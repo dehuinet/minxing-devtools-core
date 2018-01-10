@@ -70,7 +70,7 @@ _.extendOwn(exports, {
         const config = readPropertiesSync(configPath);
         return Object.assign({}, {project: _project}, config);
       }
-      if (_project === Path.resolve('/')) {
+      if (_project.toLowerCase() === Path.resolve('/').toLowerCase()) { // 在windows系统上，盘符一般都是大写的。
         return undefined;
       }
       _project = Path.resolve(_project, '..');
