@@ -28,6 +28,7 @@
     "prompt": "^1.0.0",
     "ramda": "^0.25.0",
     "request": "^2.83.0",
+    "rimraf": "^2.6.2",
     "underscore": "^1.8.3",
     "user-home": "^2.0.0",
     "ws": "^1.1.1"
