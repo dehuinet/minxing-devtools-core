@@ -1,4 +1,5 @@
 const R = require('ramda');
+const {TEAMPLATE_TEMP} = require('./config');
 
 
 
@@ -12,10 +13,11 @@ const getGithubRepoName = R.replace(/github@/, '');
 
 const formatDirName = R.replace(/\//, '-');
 
-
+const concatPrefix = R.concat(`${TEAMPLATE_TEMP}/`);
 
 
 module.exports = {
+    concatPrefix,
     isLocalFileOrigin,
     isGithubOrigin,
     getGithubRepoName,
