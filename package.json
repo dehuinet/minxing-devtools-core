@@ -28,10 +28,10 @@
     "glob": "^7.1.1",
     "promisify-node": "^0.4.0",
     "prompt": "^1.0.0",
+    "qrcode": "^1.2.0",
     "ramda": "^0.25.0",
     "request": "^2.83.0",
     "rimraf": "^2.6.2",
-    "qrcode": "^1.2.0",
     "underscore": "^1.8.3",
     "user-home": "^2.0.0",
     "ws": "^1.1.1"
@@ -39,7 +39,7 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "eslint": "^3.19.0",
-    "eslint-config-minxing": "^0.0.4",
-    "eslint-plugin-minxing": "^0.0.1"
+    "eslint-config-minxing": "^0.0.6",
+    "eslint-plugin-minxing": "^0.0.4"
   }
 }
