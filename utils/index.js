@@ -1,16 +1,31 @@
 const Fse = require('fs-extra');
 const Path = require('path');
-const projectStructure = require('./project_structure.json');
 const _ = require('underscore');
 const cluster = require('cluster');
-const pckg = require('../package.json');
 const debug = _.extendOwn(require('debug'), {
     log: console.log // eslint-disable-line no-console
 });
+const storage = require('node-localstorage');
+const co = require('co');
+const fsp = require('fs-promise');
+const {LOCALSTORAGE_TEMP} = require('./config');
+const projectStructure = require('./project_structure.json');
+const pckg = require('../package.json');
+
+let localStoragePromise;
 
 _.extendOwn(exports, {
     getProjectStructure,
     readPropertiesSync,
+    getLocalStorage(){
+        if (localStoragePromise == null) {
+            localStoragePromise = co(function *(){
+                yield fsp.mkdirs(LOCALSTORAGE_TEMP);
+                return new storage.LocalStorage(LOCALSTORAGE_TEMP);
+            });
+        }
+        return localStoragePromise;
+    },
     getAppId(propertiesPath){
         return readPropertiesSync(propertiesPath).app_id;
     },
