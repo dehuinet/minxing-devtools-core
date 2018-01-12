@@ -10,10 +10,11 @@ const isGithubOrigin = R.test(/^github@/);
 const isNpmOrigin = R.isNil;
 
 const getGithubRepoName = R.replace(/github@/, '');
+const getFilePath = R.replace(/file@/, '');
 
 const formatDirName = R.replace(/\//, '-');
-
 const concatPrefix = R.concat(`${TEAMPLATE_TEMP}/`);
+
 
 
 module.exports = {
@@ -21,6 +22,7 @@ module.exports = {
     isLocalFileOrigin,
     isGithubOrigin,
     getGithubRepoName,
+    getFilePath,
     formatDirName,
     isNpmOrigin
 }
