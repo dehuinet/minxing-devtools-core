@@ -8,6 +8,7 @@ const debug = _.extendOwn(require('debug'), {
 const storage = require('node-localstorage');
 const co = require('co');
 const fsp = require('fs-promise');
+const net = require('net');
 const {LOCALSTORAGE_TEMP} = require('./config');
 const projectStructure = require('./project_structure.json');
 const pckg = require('../package.json');
@@ -17,6 +18,21 @@ let localStoragePromise;
 _.extendOwn(exports, {
     getProjectStructure,
     readPropertiesSync,
+    getServerPort: co.wrap(function *(min, max){
+        const STORAGE_KEY = 'server-port';
+        const localStorage = yield exports.getLocalStorage();
+        let isTaken = true, port = parseInt(localStorage.getItem(STORAGE_KEY));
+        if (!isNaN(port)) { // 有缓存，判断缓存是否被占用。
+            isTaken = yield isPortTaken(port);
+        } // 没有缓存
+        [min, max] = [Math.ceil(min), Math.floor(max)];
+        while (isTaken) {
+            port = Math.floor(Math.random() * (max - min + 1)) + min;
+            isTaken = yield isPortTaken(port);
+        }
+        localStorage.setItem(STORAGE_KEY, port);
+        return port;
+    }),
     getLocalStorage(){
         if (localStoragePromise == null) {
             localStoragePromise = co(function *(){
@@ -133,4 +149,15 @@ function readPropertiesSync(propertiesPath){
         }
     }
     return obj;
+}
+function isPortTaken(port){
+    return new Promise((resolve, reject) => {
+        const tester = net.createServer().once('error', err => {
+            if (err.code === 'EADDRINUSE') {
+                resolve(true);
+            } else {
+                reject(err);
+            }
+        }).once('listening', () => tester.once('close', () => resolve(false)).close()).listen(port);
+    });
 }
