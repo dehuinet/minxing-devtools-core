@@ -13,7 +13,6 @@ const getGithubRepoName = R.replace(/github@/, '');
 const getFilePath = R.replace(/file@/, '');
 
 const formatDirName = R.replace(/\//, '-');
-
 const concatPrefix = R.concat(`${TEAMPLATE_TEMP}/`);
 
 
