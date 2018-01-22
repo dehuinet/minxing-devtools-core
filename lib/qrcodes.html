@@ -18,6 +18,14 @@
                 justify-content: center;
                 height: 100vh;
             }
+        </style>
+    </head>
+    <body>
+{{#if (eq dataURLs.length 1)}}
+        <h3>{{title}}</h3>
+        <img src="{{dataURLs.[0]}}">
+{{else if (gte dataURLs.length 1)}}
+        <style>
             div.qrcode-selector-container {
                 margin-bottom: .5em;
             }
@@ -25,21 +33,19 @@
                 display: none;
             }
         </style>
-    </head>
-    <body onload="">
         <h3>{{title}}</h3>
         <div class="qrcode-selector-container">
-            <label class="qrcode-selector-label" for="qrcode-selector">因为多网卡，所以请选择其中之一：</label>
-            <select id="qrcode-selector" name="qrcode-selector">
-{{#each ips}}
-                <option value="{{@index}}">{{this}}</option>
-{{/each}}
-            </select>
-        </div>
-        <div class="qrcode-viewer">
-{{#each dataURLs}}
-            <img src="{{this}}">
-{{/each}}
+                <label class="qrcode-selector-label" for="qrcode-selector">因为多网卡，所以请选择其中之一：</label>
+                <select id="qrcode-selector" name="qrcode-selector">
+    {{#each ips}}
+                    <option value="{{@index}}">{{this}}</option>
+    {{/each}}
+                </select>
+            </div>
+            <div class="qrcode-viewer">
+    {{#each dataURLs}}
+                <img src="{{this}}">
+    {{/each}}
         </div>
         <script>
             const selector = document.querySelector('#qrcode-selector');
@@ -51,5 +57,8 @@
                 });
             }, false);
         </script>
+{{else}}
+        <h2>没有网卡与IP地址可获得！</h2>
+{{/if}}
     </body>
 </html>
