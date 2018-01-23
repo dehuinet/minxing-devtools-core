@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <!-- Set render engine for 360 browser -->
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="expires" content="0">
+        <title>{{title}}</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+        </style>
+    </head>
+    <body>
+{{#if (eq dataURLs.length 1)}}
+        <h3>{{title}}</h3>
+        <img src="{{dataURLs.[0]}}">
+{{else if (gte dataURLs.length 1)}}
+        <style>
+            div.qrcode-selector-container {
+                margin-bottom: .5em;
+            }
+            div.qrcode-viewer img:not(:first-of-type) {
+                display: none;
+            }
+        </style>
+        <h3>{{title}}</h3>
+        <div class="qrcode-selector-container">
+                <label class="qrcode-selector-label" for="qrcode-selector">因为多网卡，所以请选择其中之一：</label>
+                <select id="qrcode-selector" name="qrcode-selector">
+    {{#each ips}}
+                    <option value="{{@index}}">{{this}}</option>
+    {{/each}}
+                </select>
+            </div>
+            <div class="qrcode-viewer">
+    {{#each dataURLs}}
+                <img src="{{this}}">
+    {{/each}}
+        </div>
+        <script>
+            const selector = document.querySelector('#qrcode-selector');
+            const images = Array.from(document.querySelectorAll('div.qrcode-viewer img'));
+            selector.addEventListener('change', () => {
+                const selected = parseInt(selector.value);
+                images.forEach((img, index) => {
+                    img.style.display = selected === index ? 'block' : 'none';
+                });
+            }, false);
+        </script>
+{{else}}
+        <h2>没有网卡与IP地址可获得！</h2>
+{{/if}}
+    </body>
+</html>
