@@ -1,4 +1,5 @@
 const Fse = require('fs-extra');
+const R = require('ramda');
 const Path = require('path');
 const _ = require('underscore');
 const cluster = require('cluster');
@@ -97,9 +98,11 @@ _.extendOwn(exports, {
         }
         const info = (function getInfo(_project){
             const configPath = Path.resolve(_project, 'plugin.properties');
+            const anotherConfigPath = Path.resolve(_project, 'config', 'plugin.properties');
             if (Fse.existsSync(configPath)) {
-                const config = readPropertiesSync(configPath);
-                return Object.assign({}, {project: _project}, config);
+                return Object.assign({}, {project: _project}, readPropertiesSync(configPath));
+            } else if(Fse.existsSync(anotherConfigPath)) {
+                return Object.assign({}, {project: _project}, readPropertiesSync(anotherConfigPath));
             }
             if (_project.toLowerCase() === Path.resolve('/').toLowerCase()) { // 在windows系统上，盘符一般都是大写的。
                 return undefined;
@@ -109,7 +112,7 @@ _.extendOwn(exports, {
         })(Path.resolve(file));
         if (info) {
             const directoryPath = Path.resolve(info.project, getProjectStructure()[info.type]);
-            if (Fse.existsSync(directoryPath) && Fse.statSync(directoryPath).isDirectory()) {
+            if (Fse.existsSync(directoryPath) && Fse.statSync(directoryPath).isDirectory() || R.propEq('frame', 'vue', info)) {
                 return info;
             }
             return '';
