@@ -3,22 +3,39 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
+const proxyReqHandle = (proxyReq, req) => {
+  const headers = {
+    'AUTHORIZATION':'bearer jELSO5dPTWyRrUHqAkkWzZLNbZMgXtRW6es3A-D80BpsZzqG',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'DOMAIN-ID':2,
+    'NETWORK-ID':2
+  }
+  Object.keys(headers).forEach(key => {
+    proxyReq.setHeader(key, headers[key]);
+  })
+}
+const proxyConfig = (proxyUri, proxyReqHandle) => {
+  proxyReqHandle = proxyReqHandle || ( () => {} );
+  return {
+    target: proxyUri,
+    changeOrigin: true,
+    onProxyReq: proxyReqHandle
+  }
+}
 module.exports = {
   dev: {
-
-    // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/api/*': {
-            target: 'http://localhost:3030',
-            secure: false,
-            changeOrigin: true,
-            pathRewrite: {
-              '^/api': ''
-            }
+      '/api/*': {
+        target: 'http://localhost:3030',
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
         }
+      },
+      '/xx': proxyConfig('http://localhost: 8888', proxyReqHandle)
     },
 
     // Various Dev Server settings

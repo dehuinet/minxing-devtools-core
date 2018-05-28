@@ -6,19 +6,10 @@
     <title>vux-demo</title>
   </head>
   <body>
-    <div id="app-box"></div>
+    <div id="app"></div>
     <!-- built files will be auto injected -->
     <script>
-        window.onload = function() {
-            document.addEventListener("deviceready", onDeviceReady, false); //等待cordova加载
-        }
-        function onDeviceReady() {
-            console.log('ondeviceready');
-            MXSetting && 
-            typeof MXSetting.setConsoleLogEnabled === 'function' &&
-            MXSetting.setConsoleLogEnabled();
-            console.log({a:1,b:2},[1,2,3]);
-        }
+   
     </script>
   </body>
 </html>
